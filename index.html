@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DuckTrade - 전문 TCG 트레이딩 플랫폼</title>
+    <meta name="description" content="한국 최초 통합 TCG 카드 거래 플랫폼. 실시간 가격 추적, 안전한 거래, 통합 검색으로 트레이딩카드 투자를 혁신합니다.">
+    <meta name="keywords" content="포켓몬카드, TCG, 트레이딩카드, PSA, BGS, BRG, 카드투자, 포켓몬카드거래">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="DuckTrade - 전문 TCG 트레이딩 플랫폼">
+    <meta property="og:description" content="네이버 카페 시간낭비는 그만! 통합 검색, 실시간 가격, 안전한 거래까지 한 번에.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ducktrade.kr">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 150px 0 100px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-opacity="1"/><stop offset="100%" stop-opacity="0"/></radialGradient></defs><circle cx="50" cy="10" r="10" fill="url(%23a)" opacity="0.1"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .cta-primary {
+            display: inline-block;
+            background: #FFD700;
+            color: #333;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+        }
+        
+        /* Problem Section */
+        .problems {
+            padding: 100px 0;
+            background: #f8f9ff;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+        
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .problem-card h3 {
+            color: #e74c3c;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Solution Section */
+        .solutions {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .solutions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .solution-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #FFD700;
+        }
+        
+        .solution-card h3 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            text-align: center;
+            padding: 2rem;
+            border-radius: 15px;
+            transition: all 0.3s;
+        }
+        
+        .feature-card:hover {
+            background: #f8f9ff;
+            transform: translateY(-3px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #667eea;
+        }
+        
+        /* Trading Flow */
+        .trading-flow {
+            padding: 100px 0;
+            background: #f8f9ff;
+        }
+        
+        .flow-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .flow-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .flow-step::after {
+            content: '→';
+            position: absolute;
+            right: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #667eea;
+        }
+        
+        .flow-step:last-child::after {
+            display: none;
+        }
+        
+        .step-number {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            line-height: 60px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        
+        /* Pricing */
+        .pricing {
+            padding: 100px 0;
+            background: white;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+            transform: rotate(45deg);
+            animation: shine 3s ease-in-out infinite;
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            50% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+            100% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .price-note {
+            opacity: 0.8;
+            margin-bottom: 2rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+        
+        .cta-secondary {
+            display: inline-block;
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .cta-secondary:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 50px 0 30px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .footer-section h3 {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-section a {
+            color: #bdc3c7;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section a:hover {
+            color: #FFD700;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 2rem;
+            text-align: center;
+            color: #bdc3c7;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .flow-step::after {
+                content: '↓';
+                right: 50%;
+                top: auto;
+                bottom: -1rem;
+                transform: translateX(50%);
+            }
+        }
+        
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Scroll animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+        
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">
+                🦆 DuckTrade
+            </div>
+            <ul class="nav-links">
+                <li><a href="#features">기능</a></li>
+                <li><a href="#pricing">가격</a></li>
+                <li><a href="#contact">문의</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">네이버 카페 시간낭비는<br>이제 그만!</h1>
+                <p class="subtitle fade-in">한국 최초 통합 TCG 트레이딩 플랫폼으로<br>스마트하게 카드를 사고팔아보세요</p>
+                
+                <div class="hero-stats">
+                    <div class="stat animate-on-scroll">
+                        <div class="stat-number">10초</div>
+                        <div class="stat-label">카드 검색 시간</div>
+                    </div>
+                    <div class="stat animate-on-scroll">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">안전한 거래</div>
+                    </div>
+                    <div class="stat animate-on-scroll">
+                        <div class="stat-number">실시간</div>
+                        <div class="stat-label">가격 추적</div>
+                    </div>
+                </div>
+                
+                <a href="#cta" class="cta-primary">베타 테스트 신청하기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">지금 카드 거래의 문제점</h2>
+            <div class="problems-grid">
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">😵‍💫</div>
+                    <h3>분산된 커뮤니티</h3>
+                    <p>네이버 카페, 디스코드, 인스타그램... 어디서 거래해야 할지 모르겠어요. 각 플랫폼을 돌아다니며 시간만 낭비하고 있습니다.</p>
+                </div>
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">🔍</div>
+                    <h3>불편한 카드 검색</h3>
+                    <p>원하는 카드를 찾기 위해 수십 개의 게시글을 일일이 확인해야 합니다. 표준화된 검색 시스템이 없어서 매번 고생이에요.</p>
+                </div>
+                <div class="problem-card animate-on-scroll">
+                    <div class="problem-icon">💸</div>
+                    <h3>불투명한 가격 정보</h3>
+                    <p>이 카드가 얼마에 거래되는지 정확히 알 수 없어서 항상 불안합니다. 너무 비싸게 사거나 싸게 파는 건 아닐까요?</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">DuckTrade의 해결책</h2>
+            <div class="solutions-grid">
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-icon">🤝</div>
+                    <h3>커뮤니티 통합</h3>
+                    <p>모든 트레이더가 한 곳에 모여 거래할 수 있는 통합 플랫폼을 제공합니다. 더 이상 여러 사이트를 돌아다닐 필요가 없어요.</p>
+                </div>
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-icon">🎯</div>
+                    <h3>표준화된 검색</h3>
+                    <p>PSA, BGS, CGC, BRG 등 모든 등급사 통합 검색으로 원하는 카드를 10초 안에 찾으세요. 필터링과 정렬 기능으로 더욱 정확하게!</p>
+                </div>
+                <div class="solution-card animate-on-scroll">
+                    <div class="solution-icon">📈</div>
+                    <h3>실시간 가격 추적</h3>
+                    <p>주식처럼 실제 거래 가격을 기반으로 한 시세 정보를 제공합니다. 차트와 통계로 트렌드까지 한눈에 파악하세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">핵심 기능</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>안전한 거래</h3>
+                    <p>토스페이먼츠 연동 에스크로 시스템으로 100% 안전한 거래를 보장합니다.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">💬</div>
+                    <h3>실시간 채팅</h3>
+                    <p>거래 과정에서 실시간 채팅으로 소통하고, 시스템 메시지로 진행 상황을 확인하세요.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">📱</div>
+                    <h3>모바일 최적화</h3>
+                    <p>언제 어디서나 스마트폰으로 편리하게 거래하고 시세를 확인할 수 있습니다.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">⚡</div>
+                    <h3>빠른 매칭</h3>
+                    <p>오더북 시스템으로 원하는 가격에 즉시 매칭되는 거래 파트너를 찾아드립니다.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">📊</div>
+                    <h3>포트폴리오 관리</h3>
+                    <p>내 카드 컬렉션의 가치 변동과 수익률을 주식 포트폴리오처럼 관리하세요.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">🎯</div>
+                    <h3>스마트 알림</h3>
+                    <p>관심 카드의 가격 변동이나 새로운 매물이 나올 때 즉시 알림을 받아보세요.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trading Flow -->
+    <section class="trading-flow">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">간단한 거래 과정</h2>
+            <div class="flow-steps">
+                <div class="flow-step animate-on-scroll">
+                    <div class="step-number">1</div>
+                    <h3>카드 검색</h3>
+                    <p>통합 검색으로 원하는 카드를 빠르게 찾으세요</p>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="step-number">2</div>
+                    <h3>가격 확인</h3>
+                    <p>실시간 시세와 과거 거래 내역을 확인하세요</p>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="step-number">3</div>
+                    <h3>주문 등록</h3>
+                    <p>원하는 가격에 사고파는 주문을 등록하세요</p>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="step-number">4</div>
+                    <h3>자동 매칭</h3>
+                    <p>조건이 맞는 상대방과 자동으로 매칭됩니다</p>
+                </div>
+                <div class="flow-step animate-on-scroll">
+                    <div class="step-number">5</div>
+                    <h3>안전한 거래</h3>
+                    <p>에스크로로 안전하게 결제하고 카드를 받으세요</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">투명한 수수료</h2>
+            <div class="pricing-card animate-on-scroll">
+                <h3>거래 수수료</h3>
+                <div class="price">단 2%</div>
+                <p class="price-note">성공한 거래에서만 부과되는 합리적인 수수료</p>
+                <ul style="text-align: left; max-width: 250px; margin: 0 auto;">
+                    <li>✅ 회원가입 무료</li>
+                    <li>✅ 카드 검색 무료</li>
+                    <li>✅ 시세 조회 무료</li>
+                    <li>✅ 주문 등록 무료</li>
+                    <li>✅ 채팅 기능 무료</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2 class="animate-on-scroll">지금 베타 테스트에 참여하세요!</h2>
+                <p class="animate-on-scroll">더 이상 시간을 낭비하지 마세요. 스마트한 카드 거래의 새로운 시대가 시작됩니다.</p>
+                <div class="cta-buttons">
+                    <a href="mailto:contact@ducktrade.kr?subject=베타 테스트 신청" class="cta-primary">베타 테스트 신청</a>
+                    <a href="#contact" class="cta-secondary">문의하기</a>
+                </div>
+                <p style="margin-top: 1rem; opacity: 0.8; font-size: 0.9rem;">
+                    베타 테스터에게는 특별 혜택과 평생 할인을 제공합니다! 🎁
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>DuckTrade</h3>
+                    <p>한국 최초 통합 TCG 트레이딩 플랫폼</p>
+                    <p>시간을 아끼고, 스마트하게 거래하세요.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>서비스</h3>
+                    <p><a href="#features">카드 거래</a></p>
+                    <p><a href="#features">실시간 시세</a></p>
+                    <p><a href="#features">포트폴리오 관리</a></p>
+                    <p><a href="#features">커뮤니티</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>지원</h3>
+                    <p><a href="mailto:support@ducktrade.kr">고객지원</a></p>
+                    <p><a href="mailto:contact@ducktrade.kr">제휴문의</a></p>
+                    <p><a href="#faq">자주 묻는 질문</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>연락처</h3>
+                    <p>📧 contact@ducktrade.kr</p>
+                    <p>📱 카카오톡: DuckTrade</p>
+                    <p>🌐 서울특별시 강남구</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DuckTrade. All rights reserved.</p>
+                <p>사업자등록번호: 123-45-67890 | 통신판매업신고: 제2024-서울강남-1234호</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Add some interactive effects
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.problem-card, .solution-card, .feature-card');
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 10;
+                    const rotateY = (centerX - x) / 10;
+                    
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(10px)`;
+                } else {
+                    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                }
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target, duration = 2000) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            
+            function updateCounter() {
+                start += increment;
+                if (start >= target) {
+                    element.textContent = target;
+                } else {
+                    element.textContent = Math.floor(start);
+                    requestAnimationFrame(updateCounter);
+                }
+            }
+            
+            updateCounter();
+        }
+
+        // Trigger counter animations when stats come into view
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const number = entry.target.querySelector('.stat-number');
+                    const text = number.textContent;
+                    if (!isNaN(text) && !number.classList.contains('animated')) {
+                        number.classList.add('animated');
+                        animateCounter(number, parseInt(text));
+                    }
+                }
+            });
+        });
+
+        document.querySelectorAll('.stat').forEach(stat => {
+            statsObserver.observe(stat);
+        });
+    </script>
+</body>
+</html>
